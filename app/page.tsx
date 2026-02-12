@@ -183,53 +183,18 @@ export default function WaitlistPage() {
                 <div className="text-center py-6 px-4 space-y-4">
                   {/* Misir Logo */}
                   <div className="flex justify-center mb-4">
-                    <div className="relative h-20 w-20">
-                      <svg
-                        xmlns="http://www.w3.org/2000/svg"
-                        viewBox="0 0 100 100"
-                        className="h-full w-full"
-                        aria-label="Misir Logo"
-                      >
-                        <path
-                          d="M50 10 L70 30 L70 70 L50 90 L30 70 L30 30 Z"
-                          fill="none"
-                          stroke="#FF6C3C"
-                          strokeWidth="3"
-                          strokeLinejoin="round"
-                        />
-                        <circle cx="50" cy="50" r="8" fill="#FF6C3C" />
-                        <line
-                          x1="50"
-                          y1="50"
-                          x2="50"
-                          y2="30"
-                          stroke="#FF6C3C"
-                          strokeWidth="2"
-                        />
-                        <line
-                          x1="50"
-                          y1="50"
-                          x2="70"
-                          y2="50"
-                          stroke="#FF6C3C"
-                          strokeWidth="2"
-                        />
-                        <line
-                          x1="50"
-                          y1="50"
-                          x2="30"
-                          y2="50"
-                          stroke="#FF6C3C"
-                          strokeWidth="2"
-                        />
-                      </svg>
-                      <div className="absolute inset-0 animate-glow rounded-full bg-[#FF6C3C]/20 blur-xl" />
+                    <div className="relative h-24 w-24 flex items-center justify-center">
+                      <img 
+                        src="/misir_logo.svg" 
+                        alt="Misir Logo" 
+                        className="h-20 w-auto object-contain"
+                      />
                     </div>
                   </div>
                   <p className="text-[#FF6C3C] font-semibold text-lg">
                     You're on the waitlist!
                   </p>
-                  <p className="text-white/70 text-sm">
+                  <p className="text-zinc-700 text-sm">
                     We're onboarding in batches. Share with friends to move up the queue.
                   </p>
                   
