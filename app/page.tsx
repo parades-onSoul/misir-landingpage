@@ -123,9 +123,9 @@ export default function WaitlistPage() {
 
             {/* Email Input Form */}
             <div 
-              className="backdrop-blur-md p-2 bg-white rounded-2xl w-full max-w-md mx-auto"
+              className="backdrop-blur-md p-3 bg-white/95 rounded-2xl w-full max-w-md mx-auto border border-white/20"
               style={{
-                boxShadow: "rgba(14, 63, 126, 0.04) 0px 0px 0px 1px, rgba(42, 51, 69, 0.04) 0px 1px 1px -0.5px, rgba(42, 51, 70, 0.04) 0px 3px 3px -1.5px, rgba(42, 51, 70, 0.04) 0px 6px 6px -3px, rgba(14, 63, 126, 0.04) 0px 12px 12px -6px, rgba(14, 63, 126, 0.04) 0px 24px 24px -12px"
+                boxShadow: "0 4px 24px rgba(255, 108, 60, 0.15), 0 8px 40px rgba(0, 0, 0, 0.12)"
               }}
             >
               {!isSubmitted ? (
@@ -138,7 +138,7 @@ export default function WaitlistPage() {
                       type="email"
                       inputMode="email"
                       autoComplete="email"
-                      placeholder="Enter email to request access"
+                      placeholder="Enter your email address"
                       aria-label="Email address"
                       aria-invalid={email && !isEmailValid}
                       aria-describedby={error ? "error-message" : email && isEmailValid ? "success-message" : undefined}
@@ -149,14 +149,14 @@ export default function WaitlistPage() {
                       }}
                       disabled={isLoading}
                       required
-                      className={`flex-1 border-none text-zinc-900 placeholder:text-zinc-400 h-12 px-4 bg-transparent rounded-xl focus-visible:ring-0 focus-visible:ring-offset-0 disabled:opacity-50 transition-colors ${
-                        email && !isEmailValid ? "ring-2 ring-red-500" : email && isEmailValid ? "ring-2 ring-green-500" : ""
+                      className={`flex-1 border-none text-zinc-900 placeholder:text-zinc-500 h-14 px-5 text-base bg-transparent rounded-xl focus-visible:ring-2 focus-visible:ring-[#FF6C3C] focus-visible:ring-offset-0 disabled:opacity-50 transition-all ${
+                        email && !isEmailValid ? "ring-2 ring-red-500" : email && isEmailValid ? "ring-2 ring-emerald-500" : ""
                       }`}
                     />
                     <Button 
                       type="submit"
                       disabled={isLoading || !isEmailValid}
-                      className="h-12 min-w-[120px] px-6 text-white font-medium transition-all bg-[#FF6C3C] hover:bg-[#FF8C5C] active:scale-95 rounded-xl shadow-lg shadow-[#FF6C3C]/50 disabled:opacity-50 disabled:cursor-not-allowed"
+                      className="h-14 min-w-[140px] px-7 text-white font-semibold text-base transition-all bg-gradient-to-r from-[#FF6C3C] to-[#FF8C5C] hover:from-[#FF5C2C] hover:to-[#FF7C4C] active:scale-95 rounded-xl shadow-lg shadow-[#FF6C3C]/40 disabled:opacity-50 disabled:cursor-not-allowed"
                       onMouseEnter={() => !isLoading && isEmailValid && setIsHovered(true)}
                       onMouseLeave={() => setIsHovered(false)}
                     >
