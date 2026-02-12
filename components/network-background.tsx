@@ -256,3 +256,4 @@ export function NetworkBackground({ isHovered }: NetworkBackgroundProps) {
 }
 
 
+export default NetworkBackground;
