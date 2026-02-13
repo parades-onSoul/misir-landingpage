@@ -22,26 +22,19 @@ export const metadata: Metadata = {
   keywords: ["misir", "waitlist", "AI", "innovation", "early access", "technology"],
   authors: [{ name: "Misir" }],
   openGraph: {
-    title: "Misir - Join the Waitlist",
-    description: "Be among the first to experience Misir. Join our exclusive waitlist and get early access to the future of AI-powered innovation.",
+    title: "Misir - The Anti-Noise Engine",
+    description: "Generative AI dropped the cost of text to zero. Misir is the passive filter for the flood that followed.",
     url: "https://misir.com",
     siteName: "Misir",
-    images: [
-      {
-        url: "/og-image.png",
-        width: 1200,
-        height: 630,
-        alt: "Misir - Join the Waitlist",
-      },
-    ],
+    images: ["/Capture.PNG"],
     locale: "en_US",
     type: "website",
   },
   twitter: {
     card: "summary_large_image",
-    title: "Misir - Join the Waitlist",
-    description: "Be among the first to experience Misir. Join our exclusive waitlist and get early access to the future of AI-powered innovation.",
-    images: ["/og-image.png"],
+    title: "Misir - The Anti-Noise Engine",
+    description: "Generative AI dropped the cost of text to zero. Misir is the passive filter for the flood that followed.",
+    images: ["/Capture.PNG"],
   },
   viewport: {
     width: "device-width",
