@@ -142,7 +142,7 @@ export default function WaitlistPage() {
                     disabled={isLoading}
                     required
                     className={`
-                      w-full h-14 pl-6 pr-[160px] 
+                      w-full h-14 pl-6 pr-[100px] md:pr-[160px] 
                       bg-zinc-900/60 backdrop-blur-xl 
                       border border-white/5 
                       rounded-full 
@@ -160,7 +160,7 @@ export default function WaitlistPage() {
                       type="submit"
                       disabled={isLoading || !isEmailValid}
                       className={`
-                        h-full px-6 
+                        h-full px-4 md:px-6 
                         rounded-full 
                         bg-gradient-to-r from-[#FF6C3C] to-[#FF8C5C] 
                         hover:from-[#FF5C2C] hover:to-[#FF7C4C] 
@@ -181,7 +181,7 @@ export default function WaitlistPage() {
                         </>
                       ) : (
                         <>
-                          <span>Join Alpha</span>
+                          <span>Join <span className="hidden md:inline">Alpha</span></span>
                           <svg 
                             className="w-4 h-4 transition-transform duration-300 group-hover/btn:translate-x-1" 
                             fill="none" 
