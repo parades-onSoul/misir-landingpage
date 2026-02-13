@@ -6,6 +6,7 @@ import { Input } from "@/components/ui/input"
 import { NetworkBackground } from "@/components/network-background"
 import { useIsMobile } from "@/hooks/use-mobile"
 import { toast } from "sonner"
+import { track } from "@vercel/analytics/react"
 
 export default function WaitlistPage() {
   const [email, setEmail] = useState("")
@@ -17,6 +18,7 @@ export default function WaitlistPage() {
   const isMobile = useIsMobile()
 
   useEffect(() => {
+    track("Page View")
     emailInputRef.current?.focus()
   }, [])
 
@@ -70,9 +72,11 @@ export default function WaitlistPage() {
         if (response.status === 409) {
           setError("This email is already on the waitlist")
           toast.error("Email already registered")
+          track("Signup Failed", { reason: "Already registered" })
         } else {
           setError(data.error || "Failed to save email")
           toast.error(data.error || "Something went wrong")
+          track("Signup Failed", { reason: data.error || "Unknown error" })
         }
         return
       }
@@ -80,10 +84,12 @@ export default function WaitlistPage() {
       setIsSubmitted(true)
       setEmail("")
       toast.success(data.message || "Successfully joined the waitlist!")
+      track("Signup Success")
     } catch (err) {
       console.error("Signup error:", err)
       setError("Network error. Please try again.")
       toast.error("Network error. Please try again.")
+      track("Signup Error", { reason: "Network error" })
     } finally {
       setIsLoading(false)
     }
