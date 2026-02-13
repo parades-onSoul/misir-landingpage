@@ -4,6 +4,7 @@ import React, { useState, useRef, useEffect } from "react"
 import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
 import { NetworkBackground } from "@/components/network-background"
+import { useIsMobile } from "@/hooks/use-mobile"
 import { toast } from "sonner"
 
 export default function WaitlistPage() {
@@ -13,6 +14,7 @@ export default function WaitlistPage() {
   const [isLoading, setIsLoading] = useState(false)
   const [error, setError] = useState("")
   const emailInputRef = useRef(null)
+  const isMobile = useIsMobile()
 
   useEffect(() => {
     emailInputRef.current?.focus()
@@ -129,7 +131,7 @@ export default function WaitlistPage() {
                     type="email"
                     inputMode="email"
                     autoComplete="email"
-                    placeholder="Enter your email address"
+                    placeholder={isMobile ? "Please share your email" : "Please share your email address"}
                     aria-label="Email address"
                     aria-invalid={email && !isEmailValid}
                     value={email}
