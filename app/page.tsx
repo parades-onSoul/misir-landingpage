@@ -107,7 +107,7 @@ export default function WaitlistPage() {
       
       {/* CENTER - Content */}
       <div className="w-full max-w-4xl relative z-20 flex flex-col justify-center items-center p-8 md:p-12 lg:p-16 text-white pt-12 md:pt-16 pb-40 animate-fade-in">
-        <header className="w-full flex flex-col gap-6 items-center">
+        <header className="w-full flex flex-col gap-3 items-center">
           
           {/* Title and Input - Centered */}
           <div className="max-w-3xl flex flex-col items-center">
@@ -116,14 +116,13 @@ export default function WaitlistPage() {
             </h1>
 
             {/* Description */}
-            <p className="text-white text-base md:text-lg leading-relaxed drop-shadow-lg font-medium mb-6 text-center text-zinc-300">
-              Generative AI dropped the cost of text to zero.
+            <p className="text-white text-base md:text-lg leading-relaxed drop-shadow-lg font-medium mb-1 text-center text-zinc-300 max-w-2xl mx-auto">
+              You are burning massive cognitive energy to process information all day. 
+              But because you don't have time to stop and manually organize it, 90% of that context evaporates by the next morning.
+              <br className="hidden md:block my-2" />
+              Yet, you still have to make serious decisions based on that evaporated data.
               <br />
-              Misir is the passive filter for the flood that followed.
-              <br />
-              Stop bookmarking. Start mapping.
-              <br />
-              <span className="font-bold text-xl md:text-2xl bg-gradient-to-r from-[#FF8C5C] to-[#FF6C3C] bg-clip-text text-transparent drop-shadow-xl mt-2 block">
+              <span className="font-bold text-xl md:text-2xl bg-gradient-to-r from-[#FF8C5C] to-[#FF6C3C] bg-clip-text text-transparent drop-shadow-xl mt-6 block">
                 Google Maps for your mind.
               </span>
             </p>

@@ -42,7 +42,7 @@ function BrainNetworkGraph() {
     texture.magFilter = THREE.LinearFilter
 
     // Create brain-shaped neural network
-    const nodeCount = 80
+    const nodeCount = 50 // Decreased from 80 for less clutter
     const nodes: NetworkNode[] = []
     const geometry = new THREE.BufferGeometry()
     const positions = new Float32Array(nodeCount * 3)
@@ -50,7 +50,7 @@ function BrainNetworkGraph() {
 
     // Create two brain hemispheres with neural structure
     for (let i = 0; i < nodeCount; i++) {
-      let x, y, z
+            let x, y, z
       
       // Create two hemisphere clusters
       const hemisphere = i < nodeCount / 2 ? -1 : 1
@@ -68,10 +68,10 @@ function BrainNetworkGraph() {
       positions[i * 3 + 1] = y
       positions[i * 3 + 2] = z
 
-      // White/silver neural nodes
-      colors[i * 3] = 0.85
-      colors[i * 3 + 1] = 0.87
-      colors[i * 3 + 2] = 0.9
+      // Darker, subtler node base color (grey-blue-ish)
+      colors[i * 3] = 0.3
+      colors[i * 3 + 1] = 0.35
+      colors[i * 3 + 2] = 0.4
 
       nodes.push({
         position: new THREE.Vector3(x, y, z),
@@ -95,7 +95,7 @@ function BrainNetworkGraph() {
       sizeAttenuation: true,
       map: texture,
       transparent: true,
-      opacity: 1,
+      opacity: 0.5, // Reduced from 1
     })
 
     const points = new THREE.Points(geometry, material)
@@ -122,8 +122,8 @@ function BrainNetworkGraph() {
             nodes[j].position.z
           )
 
-          // Subtle white/blue synaptic lines
-          lineColors.push(0.5, 0.6, 0.75, 0.5, 0.6, 0.75)
+          // Subtle dark grey/blue synaptic lines
+          lineColors.push(0.2, 0.25, 0.35, 0.2, 0.25, 0.35)
         }
       }
     }
@@ -140,7 +140,7 @@ function BrainNetworkGraph() {
     const lineMaterial = new THREE.LineBasicMaterial({
       vertexColors: true,
       transparent: true,
-      opacity: 0.25,
+      opacity: 0.08, // Significantly reduced from 0.25
       linewidth: 0.5,
     })
 
@@ -205,20 +205,20 @@ function BrainNetworkGraph() {
           node.activation += 0.08
           const pulseIntensity = Math.sin(node.activation * Math.PI) * 0.5
 
-          // Glow during activation
-          colors[i * 3] = 0.85 + pulseIntensity * 0.3
-          colors[i * 3 + 1] = 0.87 + pulseIntensity * 0.2
-          colors[i * 3 + 2] = 0.9 + pulseIntensity * 0.4
+          // Glow during activation - reduced intensity
+          colors[i * 3] = 0.3 + pulseIntensity * 0.2
+          colors[i * 3 + 1] = 0.35 + pulseIntensity * 0.15
+          colors[i * 3 + 2] = 0.4 + pulseIntensity * 0.15
 
           if (node.activation >= 1) {
             node.pulseTarget = 0
             node.activation = 0
           }
         } else {
-          // Return to baseline white/silver
-          colors[i * 3] = 0.85
-          colors[i * 3 + 1] = 0.87
-          colors[i * 3 + 2] = 0.9
+          // Return to baseline dark grey/blue
+          colors[i * 3] = 0.3
+          colors[i * 3 + 1] = 0.35
+          colors[i * 3 + 2] = 0.4
         }
       }
 
@@ -249,8 +249,8 @@ export function NetworkBackground({ isHovered }: NetworkBackgroundProps) {
       >
         <BrainNetworkGraph />
       </Canvas>
-      {/* Elegant dark overlay */}
-      <div className="absolute inset-0 bg-gradient-to-b from-black/35 via-black/45 to-black/55 z-10" />
+      {/* Elegant dark overlay - increased opacity for subtlety */}
+      <div className="absolute inset-0 bg-gradient-to-b from-black/60 via-black/70 to-zinc-950 z-10" />
     </div>
   )
 }
