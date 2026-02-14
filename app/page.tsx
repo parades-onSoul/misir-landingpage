@@ -10,6 +10,7 @@ import { track } from "@vercel/analytics/react"
 
 export default function WaitlistPage() {
   const [email, setEmail] = useState("")
+  const [source, setSource] = useState("")
   const [isSubmitted, setIsSubmitted] = useState(false)
   const [isHovered, setIsHovered] = useState(false)
   const [isLoading, setIsLoading] = useState(false)
@@ -54,6 +55,11 @@ export default function WaitlistPage() {
       return
     }
 
+    if (!source) {
+      setError("Please tell us where you heard about us")
+      return
+    }
+
     setIsLoading(true)
     setError("")
 
@@ -63,7 +69,7 @@ export default function WaitlistPage() {
         headers: {
           "Content-Type": "application/json",
         },
-        body: JSON.stringify({ email }),
+        body: JSON.stringify({ email, source }),
       })
 
       const data = await response.json()
@@ -83,6 +89,7 @@ export default function WaitlistPage() {
 
       setIsSubmitted(true)
       setEmail("")
+      setSource("")
       toast.success(data.message || "Successfully joined the waitlist!")
       track("Signup Success")
     } catch (err) {
@@ -99,8 +106,8 @@ export default function WaitlistPage() {
     <main className="relative min-h-screen overflow-hidden bg-zinc-950 flex flex-col justify-center items-center text-center">
       
       {/* CENTER - Content */}
-      <div className="w-full max-w-4xl relative z-20 flex flex-col justify-center items-center p-8 md:p-12 lg:p-16 text-white pt-16 md:pt-20 animate-fade-in">
-        <header className="w-full flex flex-col gap-8 items-center">
+      <div className="w-full max-w-4xl relative z-20 flex flex-col justify-center items-center p-8 md:p-12 lg:p-16 text-white pt-12 md:pt-16 pb-40 animate-fade-in">
+        <header className="w-full flex flex-col gap-6 items-center">
           
           {/* Title and Input - Centered */}
           <div className="max-w-3xl flex flex-col items-center">
@@ -109,7 +116,7 @@ export default function WaitlistPage() {
             </h1>
 
             {/* Description */}
-            <p className="text-white text-base md:text-lg leading-relaxed drop-shadow-lg font-medium mb-10 text-center text-zinc-300">
+            <p className="text-white text-base md:text-lg leading-relaxed drop-shadow-lg font-medium mb-6 text-center text-zinc-300">
               Generative AI dropped the cost of text to zero.
               <br />
               Misir is the passive filter for the flood that followed.
@@ -122,84 +129,122 @@ export default function WaitlistPage() {
             </p>
           </div>
 
-          {/* Email Input Form - Premium Capsule Design */}
+          {/* Form Container */}
           <div className="w-full max-w-md mx-auto relative group z-30 perspective-[1000px]">
              {/* Glow Effect behind container */}
-             <div className="absolute -inset-1 bg-gradient-to-r from-[#FF6C3C]/20 to-[#FF8C5C]/20 rounded-full blur-xl opacity-0 group-hover:opacity-100 transition duration-1000 group-hover:duration-500" />
+             <div className="absolute -inset-1 bg-gradient-to-r from-[#FF6C3C]/20 to-[#FF8C5C]/20 rounded-3xl blur-xl opacity-0 group-hover:opacity-100 transition duration-1000 group-hover:duration-500" />
 
             {!isSubmitted ? (
-              <div className="relative">
-                <form onSubmit={handleSubmit} className="relative flex items-center group/form" aria-label="Waitlist signup form">
-                  <label htmlFor="email-input" className="sr-only">Email address</label>
-                  <Input
-                    ref={emailInputRef}
-                    id="email-input"
-                    type="email"
-                    inputMode="email"
-                    autoComplete="email"
-                    placeholder={isMobile ? "Please share your email" : "Please share your email address"}
-                    aria-label="Email address"
-                    aria-invalid={email && !isEmailValid}
-                    value={email}
-                    onChange={(e) => {
-                      setEmail(e.target.value)
-                      setError("")
-                    }}
-                    disabled={isLoading}
-                    required
-                    className={`
-                      w-full h-14 pl-6 pr-[100px] md:pr-[160px] 
-                      bg-zinc-900/60 backdrop-blur-xl 
-                      border border-white/5 
-                      rounded-full 
-                      text-white placeholder:text-zinc-500 font-light
-                      focus-visible:ring-1 focus-visible:ring-[#FF6C3C]/50 focus-visible:ring-offset-0 focus-visible:border-[#FF6C3C]/50
-                      shadow-[0_0_20px_rgba(0,0,0,0.3)]
-                      transition-all duration-300
-                      ${email && !isEmailValid ? "ring-1 ring-red-500/50 border-red-500/50 bg-red-950/20" : ""}
-                      ${email && isEmailValid ? "ring-1 ring-emerald-500/50 border-emerald-500/50 bg-emerald-950/20" : ""}
-                    `}
-                  />
+              <div className="relative w-full max-w-sm mx-auto">
+                <form onSubmit={handleSubmit} className="relative flex flex-col gap-4 group/form" aria-label="Waitlist signup form">
                   
-                  <div className="absolute right-1.5 top-1.5 bottom-1.5 z-10">
-                    <Button
-                      type="submit"
-                      disabled={isLoading || !isEmailValid}
-                      className={`
-                        h-full px-4 md:px-6 
-                        rounded-full 
-                        bg-gradient-to-r from-[#FF6C3C] to-[#FF8C5C] 
-                        hover:from-[#FF5C2C] hover:to-[#FF7C4C] 
-                        text-white font-medium 
-                        shadow-lg shadow-[#FF6C3C]/20 
-                        disabled:opacity-50 disabled:cursor-not-allowed
-                        transition-all duration-300 
-                        group/btn flex items-center gap-2
-                        ${isLoading ? "opacity-80" : ""}
-                      `}
-                      onMouseEnter={() => !isLoading && isEmailValid && setIsHovered(true)}
-                      onMouseLeave={() => setIsHovered(false)}
-                    >
-                      {isLoading ? (
-                        <>
-                           <span className="w-4 h-4 border-2 border-white/30 border-t-white rounded-full animate-spin" />
-                           <span>Joining...</span>
-                        </>
-                      ) : (
-                        <>
-                          <span>Join <span className="hidden md:inline">Alpha</span></span>
-                          <svg 
-                            className="w-4 h-4 transition-transform duration-300 group-hover/btn:translate-x-1" 
-                            fill="none" 
-                            viewBox="0 0 24 24" 
-                            stroke="currentColor"
-                          >
-                            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13.5 4.5L21 12m0 0l-7.5 7.5M21 12H3" />
-                          </svg>
-                        </>
+                  {/* Inputs Container */}
+                  <div className="flex flex-col bg-zinc-900/40 backdrop-blur-xl border border-white/10 rounded-2xl overflow-hidden shadow-2xl transition-all duration-300 hover:border-white/20 hover:shadow-[#FF6C3C]/5 group-focus-within/form:border-[#FF6C3C]/30 group-focus-within/form:shadow-[#FF6C3C]/20">
+                    
+                    {/* Email Input */}
+                    <div className="relative group/field">
+                      <div className={`absolute left-4 top-1/2 -translate-y-1/2 transition-colors duration-300 ${email && isEmailValid ? "text-emerald-400" : email && !isEmailValid ? "text-red-400" : "text-zinc-500 group-focus-within/field:text-zinc-300"}`}>
+                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                          <rect width="20" height="16" x="2" y="4" rx="2"/>
+                          <path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7"/>
+                        </svg>
+                      </div>
+                      <Input
+                        ref={emailInputRef}
+                        id="email-input"
+                        type="email"
+                        inputMode="email"
+                        autoComplete="email"
+                        placeholder="email@example.com"
+                        aria-label="Email address"
+                        aria-invalid={email && !isEmailValid}
+                        value={email}
+                        onChange={(e) => {
+                          setEmail(e.target.value)
+                          setError("")
+                        }}
+                        disabled={isLoading}
+                        required
+                        className="w-full h-14 pl-12 pr-4 bg-transparent border-none rounded-none text-white placeholder:text-zinc-600 focus-visible:ring-0 focus-visible:ring-offset-0 transition-colors"
+                      />
+                      {/* Status Indicator Dot */}
+                      {email && (
+                        <div className="absolute right-4 top-1/2 -translate-y-1/2">
+                          {isEmailValid ? (
+                            <div className="w-2 h-2 rounded-full bg-emerald-500 shadow-[0_0_10px_rgba(16,185,129,0.5)] animate-pulse" />
+                          ) : (
+                            <div className="w-2 h-2 rounded-full bg-red-500 shadow-[0_0_10px_rgba(239,68,68,0.5)]" />
+                          )}
+                        </div>
                       )}
-                    </Button>
+                    </div>
+                    
+                    {/* Divider */}
+                    <div className="h-px w-full bg-gradient-to-r from-transparent via-white/10 to-transparent" />
+
+                    {/* Source Input */}
+                    <div className="relative group/field">
+                       <div className="absolute left-4 top-1/2 -translate-y-1/2 text-zinc-500 group-focus-within/field:text-zinc-300 transition-colors duration-300">
+                          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                            <path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"/>
+                            <path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"/>
+                          </svg>
+                       </div>
+                       <Input
+                          id="source-input"
+                          type="text"
+                          placeholder="Where did you hear about us?"
+                          aria-label="Source"
+                          value={source}
+                          onChange={(e) => {
+                            setSource(e.target.value)
+                            setError("")
+                          }}
+                          disabled={isLoading}
+                          required
+                          className="w-full h-14 pl-12 pr-4 bg-transparent border-none rounded-none text-white placeholder:text-zinc-600 focus-visible:ring-0 focus-visible:ring-offset-0 transition-colors"
+                        />
+                    </div>
                   </div>
+
+                  <Button
+                    type="submit"
+                    disabled={isLoading || !isEmailValid || !source}
+                    className={`
+                      w-full h-14
+                      rounded-2xl
+                      bg-white text-zinc-950
+                      hover:bg-zinc-200
+                      font-semibold tracking-wide
+                      shadow-xl shadow-white/5
+                      disabled:opacity-50 disabled:cursor-not-allowed
+                      transition-all duration-300 
+                      transform active:scale-[0.98]
+                      group/btn flex items-center justify-center gap-2
+                      ${isLoading ? "opacity-80" : ""}
+                    `}
+                    onMouseEnter={() => !isLoading && isEmailValid && source && setIsHovered(true)}
+                    onMouseLeave={() => setIsHovered(false)}
+                  >
+                    {isLoading ? (
+                      <>
+                          <span className="w-4 h-4 border-2 border-zinc-950/30 border-t-zinc-950 rounded-full animate-spin" />
+                          <span>Joining...</span>
+                      </>
+                    ) : (
+                      <>
+                        <span>Join Alpha</span>
+                        <svg 
+                          className="w-4 h-4 transition-transform duration-300 group-hover/btn:translate-x-1" 
+                          fill="none" 
+                          viewBox="0 0 24 24" 
+                          stroke="currentColor"
+                        >
+                          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13.5 4.5L21 12m0 0l-7.5 7.5M21 12H3" />
+                        </svg>
+                      </>
+                    )}
+                  </Button>
                 </form>
 
                 {/* Validation Messages - Floating below */}

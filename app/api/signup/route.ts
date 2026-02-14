@@ -3,7 +3,7 @@ import { supabase } from '@/lib/supabase'
 
 export async function POST(request: NextRequest) {
   try {
-    const { email } = await request.json()
+    const { email, source } = await request.json()
 
     // Validate email
     const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/
@@ -14,12 +14,20 @@ export async function POST(request: NextRequest) {
       )
     }
 
+    if (!source) {
+      return NextResponse.json(
+        { error: 'Please tell us where you heard about us' },
+        { status: 400 }
+      )
+    }
+
     // Insert new email
     const { error } = await supabase
       .from('waitlist')
       .insert([
         {
           email: email.toLowerCase(),
+          source,
           created_at: new Date().toISOString(),
         },
       ])

@@ -1,69 +1,35 @@
-import type { Metadata } from "next";
-import { Geist, Geist_Mono } from "next/font/google";
-import "./globals.css";
-import { ThemeProvider } from "@/components/theme-provider";
-import { Toaster } from "@/components/ui/sonner";
-import { Analytics } from "@vercel/analytics/react";
-import { SpeedInsights } from "@vercel/speed-insights/next";
+import React from "react"
+import type { Metadata } from 'next'
+import { Geist, Geist_Mono } from 'next/font/google'
+import { Analytics } from '@vercel/analytics/next'
+import { Toaster } from 'sonner'
+import './globals.css'
 
-const geistSans = Geist({
-  variable: "--font-geist-sans",
-  subsets: ["latin"],
-});
-
-const geistMono = Geist_Mono({
-  variable: "--font-geist-mono",
-  subsets: ["latin"],
-});
+const _geist = Geist({ subsets: ["latin"] });
+const _geistMono = Geist_Mono({ subsets: ["latin"] });
 
 export const metadata: Metadata = {
-  title: "Misir - Join the Waitlist",
-  description: "Be among the first to experience Misir. Join our exclusive waitlist and get early access to the future of AI-powered innovation.",
-  keywords: ["misir", "waitlist", "AI", "innovation", "early access", "technology"],
-  authors: [{ name: "Misir" }],
-  openGraph: {
-    title: "Misir - The Anti-Noise Engine",
-    description: "Generative AI dropped the cost of text to zero. Misir is the passive filter for the flood that followed.",
-    url: "https://misir.com",
-    siteName: "Misir",
-    images: ["/Capture.PNG"],
-    locale: "en_US",
-    type: "website",
+  title: 'Join the Waitlist | Agentic AI Revolution',
+  description: 'Autonomous AI agents that think and act. Revolutionary intelligence for the modern world. Join the AI revolution today.',
+  generator: 'v0.app',
+  icons: {
+    icon: '/icon.svg',
+    apple: '/apple-icon.png',
   },
-  twitter: {
-    card: "summary_large_image",
-    title: "Misir - The Anti-Noise Engine",
-    description: "Generative AI dropped the cost of text to zero. Misir is the passive filter for the flood that followed.",
-    images: ["/Capture.PNG"],
-  },
-  viewport: {
-    width: "device-width",
-    initialScale: 1,
-  },
-};
+}
 
 export default function RootLayout({
   children,
 }: Readonly<{
-  children: React.ReactNode;
+  children: React.ReactNode
 }>) {
   return (
-    <html lang="en" suppressHydrationWarning>
-      <body
-        className={`${geistSans.variable} ${geistMono.variable} antialiased`}
-      >
-        <ThemeProvider
-          attribute="class"
-          defaultTheme="dark"
-          enableSystem
-          disableTransitionOnChange
-        >
-          {children}
-          <Toaster />
-          <Analytics />
-          <SpeedInsights />
-        </ThemeProvider>
+    <html lang="en">
+      <body className={`font-sans antialiased`}>
+        {children}
+        <Toaster position="top-center" theme="dark" />
+        <Analytics />
       </body>
     </html>
-  );
+  )
 }

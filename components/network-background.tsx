@@ -140,7 +140,7 @@ function BrainNetworkGraph() {
     const lineMaterial = new THREE.LineBasicMaterial({
       vertexColors: true,
       transparent: true,
-      opacity: 0.12,
+      opacity: 0.25,
       linewidth: 0.5,
     })
 
@@ -250,10 +250,7 @@ export function NetworkBackground({ isHovered }: NetworkBackgroundProps) {
         <BrainNetworkGraph />
       </Canvas>
       {/* Elegant dark overlay */}
-      <div className="absolute inset-0 bg-gradient-to-b from-black/60 via-black/70 to-black/75 z-10" />
+      <div className="absolute inset-0 bg-gradient-to-b from-black/35 via-black/45 to-black/55 z-10" />
     </div>
   )
 }
-
-
-export default NetworkBackground;
